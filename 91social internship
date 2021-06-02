@@ -1,0 +1,276 @@
+1. Write a Python program to read a file line by line and store it into a list.
+
+
+L = ["name\n", "age\n", "id\n"]
+
+# Writing to file
+with open("myfile.txt", "w") as fp:
+    fp.writelines(L)
+
+# using readlines()
+count = 0
+print("Using readlines()")
+
+with open("myfile.txt") as fp:
+    Lines = fp.readlines()
+    for line in Lines:
+        count += 1
+        print("Line{}: {}".format(count, line.strip()))
+
+# Using readline()
+count = 0
+print("\nUsing readline()")
+
+with open("myfile.txt") as fp:
+    while True:
+        count += 1
+        line = fp.readline()
+
+        if not line:
+            break
+        print("Line{}: {}".format(count, line.strip()))
+
+# Using for loop
+count = 0
+print("\nUsing for loop")
+
+with open("myfile.txt") as fp:
+    for line in fp:
+        count += 1
+        print("Line{}: {}".format(count, line.strip()))
+        
+        
+   2: Write a Python program to calculate the number of days between two dates.
+ Sample dates : (20200702), (20200711)
+
+from datetime import date
+f_date = date(2020, 7, 2)
+l_date = date(2020, 7, 11)
+delta = l_date - f_date
+print(delta.days)
+
+
+
+out/put=9
+
+
+
+
+
+3: Write a Python program to convert the Python dictionary object (sort by key) to
+JSON data. Print the object members with indent level 4
+    
+    
+.............................. 
+import json
+j_str = {'47': 9, '54': 8, '19': 3, '92': 74}
+print("Original String:")
+print(j_str)
+print("\nJSON data:")
+print(json.dumps(j_str, sort_keys=True, indent=4))
+
+
+out/put===
+
+
+JSON data:
+{
+    "19": 3,
+    "47": 9,
+    "54": 8,
+    "92": 74
+}
+
+
+4: Write a Python program to sort a list of dictionaries using Lambda.
+ Original list of dictionaries :
+ [{'make': 'Nokia', 'model': 216, 'color': 'Black'}, {'make': 'Mi Max', 'model': '2',
+'color': 'Gold'}, {'make': 'Samsung', 'model': 7, 'color': 'Blue'}]
+ Sorting the List of dictionaries :
+ [{'make': 'Nokia', 'model': 216, 'color': 'Black'}, {'make': 'Samsung', 'model': 7,
+'color': 'Blue'}, {'make': 'Mi Max', 'model': '2', 'color': 'Gold'}]
+
+
+source code======
+-----------------
+
+models = [{'make':'Nokia', 'model':216, 'color':'Black'}, {'make':'Mi Max', 'model':'2', 'color':'Gold'}, {'make':'Samsung', 'model': 7, 'color':'Blue'}]
+print("Original list of dictionaries :")
+print(models)
+sorted_models = sorted(models, key = lambda x: x['color'])
+print("\nSorting the List of dictionaries :")
+print(sorted_models)
+
+
+o/p--
+Original list of dictionaries :
+[{'make': 'Nokia', 'model': 216, 'color': 'Black'}, {'make': 'Mi Max', 'model': '2', 'color': 'Gold'}, {'make': 'Samsung', 'model': 7, 'color': 'Blue'}]
+
+Sorting the List of dictionaries :
+[{'make': 'Nokia', 'model': 216, 'color': 'Black'}, {'make': 'Samsung', 'model': 7, 'color': 'Blue'}, {'make': 'Mi Max', 'model': '2', 'color': 'Gold'}]
+
+
+
+5: Write a Python program that takes a text file as input and returns the number of
+words of a given text file.
+Note: Some words can be separated by a comma with no space.
+
+
+# importing os module
+import os
+
+# Function to count number
+# of characters, words, spaces
+# and lines in a file
+def counter(fname):
+	
+	# variable to store total word count
+	num_words = 0
+	
+	# variable to store total line count
+	num_lines = 0
+	
+	# variable to store total character count
+	num_charc = 0
+	
+	# variable to store total space count
+	num_spaces = 0
+	
+	# opening file using with() method
+	# so that file gets closed
+	# after completion of work
+	with open(fname, 'r') as f:
+		
+		# loop to iterate file
+		# line by line
+		for line in f:
+			
+			# separating a line
+			# from \n character
+			# and storing again in line
+			# variable for further operations
+			line = line.strip(os.linesep)
+			
+			# splitting the line
+			# to make a list of
+			# all the words present
+			# in that line and storing
+			# that list in
+			# wordlist variable
+			wordslist = line.split()
+			
+			# incrementing value of
+			# num_lines with each
+			# iteration of loop to
+			# store total line count
+			num_lines = num_lines + 1
+			
+			# incrementing value of
+			# num_words by the
+			# number of items in the
+			# list wordlist
+			num_words = num_words + len(wordslist)
+			
+			# incrementing value of
+			# num_charc by 1 whenever
+			# value of variable c is other
+			# than white space in the separated line
+			num_charc = num_charc + sum(1 for c in line
+						if c not in (os.linesep, ' '))
+			
+			# incrementing value of
+			# num_spaces by 1 whenever
+			# value of variable s is
+			# white space in the separated line
+			num_spaces = num_spaces + sum(1 for s in line
+								if s in (os.linesep, ' '))
+	
+	# printing total word count
+	print("Number of words in text file: ", num_words)
+	
+	# printing total line count
+	print("Number of lines in text file: ", num_lines)
+	
+	# printing total character count
+	print("Number of characters in text file: ", num_charc)
+	
+	# printing total space count
+	print("Number of spaces in text file: ", num_spaces)
+
+# Driver Code:
+if __name__ == '__main__':
+	fname = 'File1.txt'
+	try:
+		counter(fname)
+	except:
+		print('File not found')
+
+Output:
+
+Number of words in text file:  25
+Number of lines in text file:  4
+Number of characters in text file:  91
+Number of spaces in text file:  21
+
+
+
+
+6: Write a Python program to convert an array to an array of machine values and
+return the bytes representation.
+
+import array
+import binascii
+a = array.array('i', [1,2,3,4,5,6])
+print("Original array:")
+print('A1:', a)
+bytes_array = a.tobytes()
+print('Array of bytes:', binascii.hexlify(bytes_array))
+
+
+
+ Output:
+
+Original array:                                                                                               
+A1: array('i', [1, 2, 3, 4, 5, 6])                                                                            
+Array of bytes: b'010000000200000003000000040000000500000006000000'
+
+
+
+
+8: Program to Generate random logs and write in a file , once the file size reaches 2Mb
+open new file and continue writing
+
+import os
+file_number = 0
+file_size = 0
+while True:
+ if file_size < 2e+6:
+   try:
+     file = open('<file_name>%d<extension>'%file_number, 'x')
+   except:
+      pass
+   file = open('<file_name>%d<extension>'%file_number)
+   text = file.read() + '<text_to_be_written>'
+   file = open('<file_name>%d<extension>'%file_number, 'w')
+   file.write(text)
+ file_size = os.stat('<file_name>%d<extension>'%file_number) .st_size
+ if file_size > 2e+6:
+   file_number += 1
+   file_size = 0 
+   
+   
+   
+   9: Script to ping and check whether any given IPs are active, also whether given set of
+software are installed in the existing system ( like java, kubectl, aws etc)
+
+
+
+
+To run and assign an IP address to the pod on your worker node with your CNI plugin, you must have the following:
+
+AWS Identity and Access Management (IAM) permissions, including an Amazon EKS CNI policy attached to the IAM role of your worker node or provided through IAM roles for service accounts
+An Amazon EKS API server endpoint that can be reached from the worker node
+Network access to API endpoints for Amazon Elastic Compute Cloud (Amazon EC2), Amazon Elastic Container Registry (Amazon ECR), and Amazon Simple Storage Service (Amazon S3)
+Enough IP addresses available in your subnet
+
+
